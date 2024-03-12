@@ -1,5 +1,4 @@
-import 'package:app_geolocation/src/ui/colors.dart';
-import 'package:app_geolocation/src/ui/dimens.dart';
+import 'package:app_geolocation/src/packages/core/ui/ui.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme{

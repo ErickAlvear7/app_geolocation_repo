@@ -1,6 +1,11 @@
-import 'package:app_geolocation/src/pages/pages.dart';
-import 'package:app_geolocation/src/ui/theme.dart';
+import 'package:app_geolocation/src/packages/core/ui/ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'src/packages/features/gps_permissions/gps_permissions.dart';
+
+
+
+
 
 void main() {
   runApp(const MainApp());
@@ -15,7 +20,10 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       title: 'App_Geolocation',
-      home: const GpsPage(),
+      home: BlocProvider(
+        create: (context) => GpsPermissionsBloc(),
+        child: const GpsPage(),
+      ),
     );
   }
 }
