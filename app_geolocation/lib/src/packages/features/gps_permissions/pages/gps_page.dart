@@ -1,4 +1,3 @@
-
 import 'package:app_geolocation/src/packages/core/ui/ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,23 +9,24 @@ class GpsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final bloc = context.read<GpsPermissionsBloc>();
-    
-    return const Scaffold(
+
+    return Scaffold(
       body: Center(
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: AppDimens.dimen_4,
-          ),
-          child: EnableGps(
-            //onTapfunction: () => print('hola'),
-          ),
-        ),
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppDimens.dimen_4,
+            ),
+            child: BlocBuilder<GpsPermissionsBloc, GpsPermissionsState>(
+                builder: (context,state){
+                  return !state.isGpsEnabled ? 
+                  const MessageGps() : 
+                  EnableGps(
+                    onTapfunction: () {},
+                  );
+                }  
+              )),
       ),
     );
   }
 }
-
-
-
