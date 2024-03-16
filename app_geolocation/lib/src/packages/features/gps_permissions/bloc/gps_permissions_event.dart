@@ -17,3 +17,15 @@ class GpsAndPermissionsEvent extends GpsPermissionsEvent {
   
   List<Object> get props => [isGpsEnabled,isGpsPermissionGranted];
 }
+
+//evneto estado inicial del gps
+
+class GpsInitialStatusEvent extends GpsPermissionsEvent{
+  const GpsInitialStatusEvent();
+}
+
+//evento si cambia el estado del gps
+
+class ChangeGpsStatusEvent extends GpsPermissionsEvent{
+  const ChangeGpsStatusEvent();
+}

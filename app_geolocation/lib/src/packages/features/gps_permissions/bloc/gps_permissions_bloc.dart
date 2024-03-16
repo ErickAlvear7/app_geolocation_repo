@@ -9,19 +9,52 @@ part 'gps_permissions_state.dart';
 
 class GpsPermissionsBloc
     extends Bloc<GpsPermissionsEvent, GpsPermissionsState> {
-  GpsPermissionsBloc(this.gpsInitialStatus, this.gpsStatus)
+  GpsPermissionsBloc(this._gpsInitialStatus, this._gpsStatus)
       : super(const GpsPermissionsState()) {
     on<GpsAndPermissionsEvent>(_onGpsAndPermissionsEvent);
+    on<GpsInitialStatusEvent>(_onGpsInitialStatusEvent);
+    on<ChangeGpsStatusEvent>(_onChangeGpsStatusEvent);
+
+    _init();
   }
 
-  final GpsInitialStatus gpsInitialStatus;
-  final GpsStatus gpsStatus;
+  final GpsInitialStatus _gpsInitialStatus;
+  final GpsStatus _gpsStatus;
 
   FutureOr<void> _onGpsAndPermissionsEvent(
-      GpsAndPermissionsEvent event, Emitter<GpsPermissionsState> emit) {
+    GpsAndPermissionsEvent event,
+    Emitter<GpsPermissionsState> emit,
+  ) {
     emit(state.copyWith(
       isGpsEnabled: event.isGpsEnabled,
       isGpsPermissionGranted: event.isGpsPermissionGranted,
     ));
+  }
+
+  FutureOr<void> _onGpsInitialStatusEvent(
+    GpsInitialStatusEvent event,
+    Emitter<GpsPermissionsState> emit,
+  ) {
+    return emit.forEach(
+      _gpsInitialStatus().asStream(),
+      onData: ((data) => state.copyWith(
+            isGpsEnabled: data,
+          )),
+    );
+  }
+
+  FutureOr<void> _onChangeGpsStatusEvent(
+    ChangeGpsStatusEvent event,
+    Emitter<GpsPermissionsState> emit,
+  ) {
+    return emit.forEach(
+      _gpsStatus(),
+      onData: (data) => state.copyWith(isGpsEnabled: data),
+    );
+  }
+
+  void _init(){
+    add(const GpsInitialStatusEvent());
+    add(const ChangeGpsStatusEvent());
   }
 }
