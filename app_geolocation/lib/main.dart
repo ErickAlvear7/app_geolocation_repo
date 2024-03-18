@@ -21,6 +21,9 @@ class MainApp extends StatelessWidget {
         create: (context) => GpsPermissionsBloc(
           const GpsInitialStatus(),
           const GpsStatus(),
+          const AskGpsAccess(),
+          const OpenAppSettins(),
+          const CheckPermissionGranted(),
         ),
         child: const GpsPage(),
       ),

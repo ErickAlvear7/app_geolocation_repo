@@ -18,14 +18,13 @@ class GpsPage extends StatelessWidget {
               horizontal: AppDimens.dimen_4,
             ),
             child: BlocBuilder<GpsPermissionsBloc, GpsPermissionsState>(
-                builder: (context,state){
-                  return !state.isGpsEnabled ? 
-                  const MessageGps() : 
-                  EnableGps(
-                    onTapfunction: () {},
-                  );
-                }  
-              )),
+                builder: (context, state) {
+              return !state.isGpsEnabled
+                  ? const MessageGps()
+                  : EnableGps(
+                      onTapfunction: () =>
+                          context.read<GpsPermissionsBloc>().add(const AskGpsAccessEvent()));
+            })),
       ),
     );
   }
