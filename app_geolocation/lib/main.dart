@@ -1,6 +1,5 @@
 import 'package:app_geolocation/src/app/di/di.dart';
 import 'package:app_geolocation/src/packages/core/ui/ui.dart';
-import 'package:app_geolocation/src/packages/data/device/aplication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'src/packages/features/gps_permissions/gps_permissions.dart';

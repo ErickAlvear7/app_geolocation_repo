@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 
 import '../../packages/data/device/aplication.dart';
 
-final sl = GetIt.instance;
+final sl = GetIt.instance; //service locator
 
 //casos de uso
 Future<void> init() async {
