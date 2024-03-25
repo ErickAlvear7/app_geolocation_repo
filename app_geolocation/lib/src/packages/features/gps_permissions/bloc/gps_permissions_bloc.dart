@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:rxdart/rxdart.dart';
 import '../../../data/device/aplication.dart';
 
 part 'gps_permissions_event.dart';
@@ -41,9 +42,11 @@ class GpsPermissionsBloc
     Emitter<GpsPermissionsState> emit,
   ) {
     return emit.forEach(
-      _gpsInitialStatus().asStream(),
+      Rx.combineLatest2(_gpsInitialStatus().asStream(), _checkPermissionGranted(), (gpsStatus, gpsGranted) =>(gpsStatus, gpsGranted),
+      ),
       onData: ((data) => state.copyWith(
-            isGpsEnabled: data,
+            isGpsEnabled: data.$1,
+            isGpsPermissionGranted: data.$2,
           )),
     );
   }
